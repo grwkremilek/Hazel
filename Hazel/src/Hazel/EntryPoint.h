@@ -6,9 +6,14 @@ extern Hazel::Application* Hazel::CreateApplication();		//allows not to specify 
 
 int main(int argc, char** argv)
 {
-	auto app = Hazel::CreateApplication();
+	Hazel::Log::Init();
+	HZ_CORE_WARN("Initialized Log!");
+	int a = 5;
+	HZ_INFO("Hello! Var={0}", a);
+
+	auto app = Hazel::CreateApplication();					//initialize an app (new allocates heap memory)
 	app->Run();
-	delete app;
+	delete app;												//deallocate memory from heap
 }
 
 #endif
