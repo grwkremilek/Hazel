@@ -26,13 +26,14 @@ project "Hazel"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include"
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.17134.0"
+		systemversion "latest"
 
 		defines
 		{
@@ -42,8 +43,8 @@ project "Hazel"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""),
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Asteroid/\"")
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"),
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Asteroid")
 		}
 
 	filter "configurations:Debug"
@@ -58,10 +59,10 @@ project "Hazel"
 		defines "HZ_DIST"
 		optimize "On"
 
-		
-		
-		
-		
+
+
+
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -90,7 +91,7 @@ project "Sandbox"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.17134.0"
+		systemversion "latest"
 
 		defines
 		{
@@ -107,8 +108,7 @@ project "Sandbox"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
-		optimize "On"
-	
+		optimize "On"	
 
 
 	
@@ -141,7 +141,7 @@ project "Asteroid"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.17134.0"
+		systemversion "latest"
 
 		defines
 		{
