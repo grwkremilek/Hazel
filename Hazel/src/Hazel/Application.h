@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Events/Event.h"
 #include "Core.h"
+#include "Events/Event.h"
+#include "Window.h"
 
 namespace Hazel {
 
@@ -9,13 +10,17 @@ namespace Hazel {
 	{
 	public:
 		Application();
-		virtual ~Application();				//virtual destructor bc the class will be subclassed
+		virtual ~Application();
 
 		void Run();
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
 	};
 
 	// To be defined in CLIENT
 	Application* CreateApplication();
+
 }
 
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "hzpch.h"
 #include "Hazel/Core.h"
 
 namespace Hazel {
@@ -9,8 +10,8 @@ namespace Hazel {
 	// For the future, a better strategy might be to buffer events in an event
 	// bus and process them during the "event" part of the update stage.
 
-	enum class EventType															//describes event types
-	{																				//each event type has an ID assigned
+	enum class EventType
+	{
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
@@ -18,8 +19,8 @@ namespace Hazel {
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
-	enum EventCategory							//filters specific type of events, for the needs of logging etc.
-	{											//bitfield so that one event able to belong to more categories
+	enum EventCategory
+	{
 		None = 0,
 		EventCategoryApplication = BIT(0),
 		EventCategoryInput = BIT(1),
@@ -28,32 +29,27 @@ namespace Hazel {
 		EventCategoryMouseButton = BIT(4)
 	};
 
-
-
 	#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
 								virtual const char* GetName() const override { return #type; }
 
 	#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-
-
-
-	class HAZEL_API Event												//basic event class
+	class HAZEL_API Event
 	{
 		friend class EventDispatcher;
 	public:
-		virtual EventType GetEventType() const = 0;						//pure vitrual function
-		virtual const char* GetName() const = 0;						//pure vitrual function
-		virtual int GetCategoryFlags() const = 0;						//pure vitrual function
-		virtual std::string ToString() const { return GetName(); }		//debugging
+		virtual EventType GetEventType() const = 0;
+		virtual const char* GetName() const = 0;
+		virtual int GetCategoryFlags() const = 0;
+		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)				//belongs to a category or not
+		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
 	protected:
-		bool m_Handled = false;											//used when propagating an event to further layers
+		bool m_Handled = false;
 	};
 
 	class EventDispatcher
@@ -69,9 +65,9 @@ namespace Hazel {
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType())		//check if an event matches a template
+			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);			//dispatch to an appropriate function
+				m_Event.m_Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
