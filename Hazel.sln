@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Asteroid", "MyProjects\Asteroid\Asteroid.vcxproj", "{001FCE22-ECEB-282E-1505-17D601315EBC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Asteroid", "Asteroid\Asteroid.vcxproj", "{001FCE22-ECEB-282E-1505-17D601315EBC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Hazel\vendor\GLFW\GLFW.vcxproj", "{154B857C-0182-860D-AA6E-6C109684020F}"
 EndProject
