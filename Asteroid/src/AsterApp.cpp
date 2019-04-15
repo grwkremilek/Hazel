@@ -20,16 +20,16 @@ public:
 
 };
 
-class Sandbox : public Hazel::Application
+class Asteroid : public Hazel::Application
 {
 public:
-	Sandbox()
+	Asteroid()
 	{
 		PushLayer(new ExampleLayer());
 		PushOverlay(new Hazel::ImGuiLayer());
 	}
 
-	~Sandbox()
+	~Asteroid()
 	{
 
 	}
@@ -38,5 +38,5 @@ public:
 
 Hazel::Application* Hazel::CreateApplication()
 {
-	return new Sandbox();
+	return new Asteroid();
 }
