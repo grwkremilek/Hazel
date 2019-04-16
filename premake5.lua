@@ -20,6 +20,8 @@ include "Hazel/vendor/GLFW"
 include "Hazel/vendor/Glad"
 include "Hazel/vendor/imgui"
 
+--startproject "Sandbox"
+
 project "Hazel"
 	location "Hazel"
 	kind "SharedLib"
@@ -68,23 +70,26 @@ project "Hazel"
 
 		postbuildcommands
 		{
-			--("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Asteroid")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""),
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Asteroid/\"")
 		}
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 
@@ -128,16 +133,19 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 
@@ -181,14 +189,17 @@ project "Asteroid"
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
