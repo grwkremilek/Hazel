@@ -79,4 +79,5 @@ namespace Hazel {
 	{
 		return os << e.ToString();
 	}
+
 }
