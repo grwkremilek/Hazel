@@ -73,7 +73,9 @@ project "Hazel"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""),
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Asteroid/\"")
+			
 		}
 
 	filter "configurations:Debug"
@@ -110,6 +112,7 @@ project "Sandbox"
 	{
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src",
+		"Hazel/vendor",
 		"%{IncludeDir.glm}"
 	}
 
@@ -140,7 +143,7 @@ project "Sandbox"
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		runtime "Release"
-optimize "On"
+		optimize "On"
 
 
 
