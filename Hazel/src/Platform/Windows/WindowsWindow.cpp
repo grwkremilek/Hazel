@@ -154,14 +154,14 @@ namespace Hazel {
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwPollEvents();
+		glfwPollEvents();			//process events in the queue + window and input callbacks associated with the events called
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		if (enabled)
-			glfwSwapInterval(1);
+			glfwSwapInterval(1);						//*
 		else
 			glfwSwapInterval(0);
 
@@ -172,5 +172,9 @@ namespace Hazel {
 	{
 		return m_Data.VSync;
 	}
-
 }
+
+/*
+glfwSwapBuffers
+This function sets the swap interval for the current OpenGL or OpenGL ES context, i.e. the number of screen updates to wait from the time glfwSwapBuffers was called before swapping the buffers and returning. This is sometimes called vertical synchronization, vertical retrace synchronization or just vsync.
+*/

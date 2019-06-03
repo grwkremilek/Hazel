@@ -1,13 +1,13 @@
-#include "hzpch.h"
-#include "LayerStack.h"
+#include "hzpch.h"								//include a collection of standard library header files
+#include "LayerStack.h"							
 
 namespace Hazel {
 
-	LayerStack::LayerStack()
+	LayerStack::LayerStack()					//constructor
 	{
 	}
 
-	LayerStack::~LayerStack()
+	LayerStack::~LayerStack()					//destructor
 	{
 		for (Layer* layer : m_Layers)
 			delete layer;
@@ -15,16 +15,16 @@ namespace Hazel {
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
-		m_LayerInsertIndex++;
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);		//push layer at the end of stack
+		m_LayerInsertIndex++;												//total of layers
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
 	{
-		m_Layers.emplace_back(overlay);
+		m_Layers.emplace_back(overlay);									// insert a new element at the end of the vector container
 	}
 
-	void LayerStack::PopLayer(Layer* layer)
+	void LayerStack::PopLayer(Layer* layer)								//remove layer
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 		if (it != m_Layers.end())
@@ -34,7 +34,7 @@ namespace Hazel {
 		}
 	}
 
-	void LayerStack::PopOverlay(Layer* overlay)
+	void LayerStack::PopOverlay(Layer* overlay)							//remove overlay
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())

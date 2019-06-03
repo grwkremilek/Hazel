@@ -1,34 +1,35 @@
-#include "hzpch.h"
+
+//WINDOW SETUP, IMGUI CONTEXT SETUP, APPLICATION RUNNING
+
+#include "hzpch.h"									//include a collection of standard library header files
+#include <glad/glad.h>								//OpenGL Loading Library; loads pointers to OpenGL functions
+
 #include "Application.h"
+#include "Input.h"									//class checking the keys and mouse
 
-#include "Hazel/Log.h"
+#include "Hazel/Log.h"								//logging system for the engine and apps					
 
-#include <glad/glad.h>
-
-#include "Input.h"
 
 namespace Hazel {
 
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)//??*
 
-	Application* Application::s_Instance = nullptr;
+	Application* Application::s_Instance = nullptr;								//*
 
-	Application::Application()
+	Application::Application()													//constructor
 	{
-		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
-		s_Instance = this;
+		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");				//log
+		s_Instance = this;														//*
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window = std::unique_ptr<Window>(Window::Create());					//create a window
+		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));						//*
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
+		m_ImGuiLayer = new ImGuiLayer();										//memory allocation on the heap
+		PushOverlay(m_ImGuiLayer);												//push a layer at the end of the layerstack		
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
+		//VERTICES
+		glGenVertexArrays(1, &m_VertexArray);							//generate a vertex array object name
+		glBindVertexArray(m_VertexArray);								//bind the vertex array object with a name
 
 		float vertices[3 * 3] = {
 			-0.5f, -0.5f, 0.0f,
@@ -36,17 +37,17 @@ namespace Hazel {
 			 0.0f,  0.5f, 0.0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));	//create a new data store for a buffer object
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		glEnableVertexAttribArray(0);												//enable a generic vertex attribute array
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);//define an array of vertex attribute data
+		
+		//INDICES
+		uint32_t indices[3] = { 0, 1, 2 };
+		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
-		unsigned int indices[3] = { 0, 1, 2 };
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
+		//SHADERS
 		std::string vertexSrc = R"(
 			#version 330 core
 			
@@ -70,65 +71,90 @@ namespace Hazel {
 			}
 		)";
 
-		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));							//??
 	}
+
 
 	Application::~Application()
 	{
 	}
 
+
 	void Application::PushLayer(Layer* layer)
 	{
-		m_LayerStack.PushLayer(layer);
+		m_LayerStack.PushLayer(layer);										//push a layer at the end of the layerstack
 		layer->OnAttach();
 	}
+
 
 	void Application::PushOverlay(Layer* layer)
 	{
-		m_LayerStack.PushOverlay(layer);
-		layer->OnAttach();
+		m_LayerStack.PushOverlay(layer);									//push an overlayer at the end of the layerstack
+		layer->OnAttach();													//??
 	}
+
 
 	void Application::OnEvent(Event& e)
 	{
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		EventDispatcher dispatcher(e);										//define a dispatcher
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));//??
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )	//iterate layerstack from the end
 		{
-			(*--it)->OnEvent(e);
-			if (e.Handled)
+			(*--it)->OnEvent(e);											//??
+			if (e.Handled)							//when the event handled in a layer, break
 				break;
 		}
 	}
+
 
 	void Application::Run()
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClearColor(0.1f, 0.1f, 0.1f, 1);			//specify clear values for the color buffers
+			glClear(GL_COLOR_BUFFER_BIT);				//clear buffers to preset values
 
-			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			m_Shader->Bind();							//bind a shader
+			glBindVertexArray(m_VertexArray);			//bind a vertex array object
+			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);	//render primitives from array data
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
+			for (Layer* layer : m_LayerStack)			//iterate the layerstack and render layers
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
-			m_Window->OnUpdate();
+			m_Window->OnUpdate();						//poll events and swap buffers
 		}
 	}
+
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
 		return true;
 	}
-
 }
+
+
+
+/*
+bind()
+
+
+nullptr
+- meant as a replacement to NULL
+- provides a typesafe pointer value representing an empty (null) pointer
+
+this
+holds the address of current object
+
+-> (arrow)
+ access to a member function/variable of an object through a pointer
+ a->b means (*a).b
+
+
+*/

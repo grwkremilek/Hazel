@@ -1,19 +1,31 @@
 #pragma once
 
+//MAIN FUNCTION for WINDOWS
+
 #ifdef HZ_PLATFORM_WINDOWS
 
-extern Hazel::Application* Hazel::CreateApplication();
+extern Hazel::Application* Hazel::CreateApplication();		//*
+
+int main(int argc, char** argv)								//*
+{
+	Hazel::Log::Init();										//initiate logging system
+	HZ_CORE_WARN("Initialized Log!");
+	std::string a = "The logging system has been initalized.";
+	HZ_INFO("Hello!", a);
+
+	auto app = Hazel::CreateApplication();					//create an application (from the startup project)
+	app->Run();												//run application
+	delete app;												//delete new object after stop
+}
+#endif
+
+/*
+extern
+using extern int x; tells the compiler that an object of type int called x exists somewhere
+
 
 int main(int argc, char** argv)
-{
-	Hazel::Log::Init();
-	HZ_CORE_WARN("Initialized Log!");
-	int a = 5;
-	HZ_INFO("Hello! Var={0}", a);
-
-	auto app = Hazel::CreateApplication();
-	app->Run();
-	delete app;
-}
-
-#endif
+- int: function returns 0 or 1 (suceed x fail)
+- int argc: number of strings pointed to by argv (argument count)
+- char** argv: the array of arguments (argument vector) 
+*/

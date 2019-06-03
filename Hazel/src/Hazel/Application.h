@@ -1,49 +1,74 @@
 #pragma once
 
-#include "Core.h"
+//WINDOW SETUP, IMGUI CONTEXT SETUP, APPLICATION RUNNING
 
-#include "Window.h"
-#include "Hazel/LayerStack.h"
-#include "Hazel/Events/Event.h"
-#include "Hazel/Events/ApplicationEvent.h"
+#include "Core.h"								//include macros
+#include "Window.h"								//create a window instance
 
-#include "Hazel/ImGui/ImGuiLayer.h"
-
-#include "Hazel/Renderer/Shader.h"
+#include "Hazel/LayerStack.h"					//create layerstack to push and pop layers
+#include "Hazel/Events/Event.h"					//includes event class
+#include "Hazel/Events/ApplicationEvent.h"		//events connected to the window, rendering
+#include "Hazel/ImGui/ImGuiLayer.h"				//creates an ImGui control context
+#include "Hazel/Renderer/Shader.h"				//bind-unbind shaders
+#include "Hazel/Renderer/Buffer.h"
 
 namespace Hazel {
 
-	class HAZEL_API Application
+	class HAZEL_API Application								//HAZEL_API macro for __dllexport
 	{
-	public:
-		Application();
-		virtual ~Application();
+	public:													//methods related to the window*
+		Application();										//declaration
+		virtual ~Application();								//virtual destructor*
+		
+		void Run();											//method controlling the shaders, renderer, layers
+		void OnEvent(Event& e);								//dispatch an event to other layers*
+		
+		bool m_Running = true;								//control the running of an application
+		bool OnWindowClose(WindowCloseEvent& e);			//change m_Running to false
 
-		void Run();
+		std::unique_ptr<Window> m_Window;					//create a member window*
+		
+		LayerStack m_LayerStack;
+		ImGuiLayer* m_ImGuiLayer;
 
-		void OnEvent(Event& e);
-
-		void PushLayer(Layer* layer);
+		void PushLayer(Layer* layer);						//*
 		void PushOverlay(Layer* layer);
 
-		inline Window& GetWindow() { return *m_Window; }
-
-		inline static Application& Get() { return *s_Instance; }
-	private:
-		bool OnWindowClose(WindowCloseEvent& e);
-
-		std::unique_ptr<Window> m_Window;
-		ImGuiLayer* m_ImGuiLayer;
-		bool m_Running = true;
-		LayerStack m_LayerStack;
-
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
 		std::unique_ptr<Shader> m_Shader;
-	private:
-		static Application* s_Instance;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+	
+		static Application* s_Instance;								//??
+
+
+		inline Window& GetWindow() { return *m_Window; }			//returns the size of the window
+		inline static Application& Get() { return *s_Instance; }	//??*
 	};
 
 	// To be defined in CLIENT
 	Application* CreateApplication();
 
 }
+
+
+/*
+public
+accessible by all who have acess to the class Application
+private
+only accessible from within the class
+
+
+virtual destructors
+ prevent deletion of an instance of a derived class through a pointer to the base class
+
+ unique pointers
+ own and manage another object through a pointer and dispose of that object when the unique_ptr goes out of scope
+
+
+ & = reference to (another variable)
+ *= pointer (stores an address)
+
+ static
+ accessible only from other functions in the same file
+*/
