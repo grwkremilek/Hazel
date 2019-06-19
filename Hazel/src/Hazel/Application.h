@@ -11,6 +11,7 @@
 #include "Hazel/ImGui/ImGuiLayer.h"				//creates an ImGui control context
 #include "Hazel/Renderer/Shader.h"				//bind-unbind shaders
 #include "Hazel/Renderer/Buffer.h"
+#include "Hazel/Renderer/VertexArray.h"
 
 namespace Hazel {
 
@@ -34,11 +35,12 @@ namespace Hazel {
 		void PushLayer(Layer* layer);						//*
 		void PushOverlay(Layer* layer);
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-	
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
+
 		static Application* s_Instance;								//??
 
 

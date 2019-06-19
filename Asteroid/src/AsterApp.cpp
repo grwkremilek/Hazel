@@ -18,9 +18,8 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello Asteroid");
-		ImGui::End();
+		static bool show = true;
+		ImGui::ShowMainImguiWindow(&show);
 	}
 
 	void OnEvent(Hazel::Event& event) override
