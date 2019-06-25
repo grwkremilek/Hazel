@@ -7,7 +7,8 @@
 #include "Application.h"
 #include "Input.h"									//class checking the keys and mouse
 
-#include "Hazel/Log.h"								//logging system for the engine and apps					
+#include "Hazel/Log.h"								//logging system for the engine and app
+#include "Hazel/Renderer/Renderer.h"
 
 
 namespace Hazel {
@@ -177,16 +178,20 @@ namespace Hazel {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);			//specify clear values for the color buffers
-			glClear(GL_COLOR_BUFFER_BIT);				//clear buffers to preset values
 
-			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });//specify clear values for the color buffers
+			RenderCommand::Clear();
 
-			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeginScene();
+			{
+				m_BlueShader->Bind();
+				Renderer::Submit(m_SquareVA);
+
+				m_Shader->Bind();
+				Renderer::Submit(m_VertexArray);
+
+				Renderer::EndScene();
+			}
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
