@@ -1,3 +1,5 @@
+//PARENT FILE FOR ALL BUFFERS, SWITCH FOR PLATFORMS
+
 #include "hzpch.h"
 #include "Buffer.h"
 

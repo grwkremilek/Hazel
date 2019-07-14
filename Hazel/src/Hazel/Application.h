@@ -2,50 +2,58 @@
 
 //WINDOW SETUP, IMGUI CONTEXT SETUP, APPLICATION RUNNING
 
-#include "Core.h"								//include macros
-#include "Window.h"								//create a window instance
+#pragma once
 
-#include "Hazel/LayerStack.h"					//create layerstack to push and pop layers
-#include "Hazel/Events/Event.h"					//includes event class
-#include "Hazel/Events/ApplicationEvent.h"		//events connected to the window, rendering
-#include "Hazel/ImGui/ImGuiLayer.h"				//creates an ImGui control context
-#include "Hazel/Renderer/Shader.h"				//bind-unbind shaders
+#include "Core.h"
+
+#include "Window.h"
+#include "Hazel/LayerStack.h"
+#include "Hazel/Events/Event.h"
+#include "Hazel/Events/ApplicationEvent.h"
+
+#include "Hazel/ImGui/ImGuiLayer.h"
+
+#include "Hazel/Renderer/Shader.h"
 #include "Hazel/Renderer/Buffer.h"
 #include "Hazel/Renderer/VertexArray.h"
 
+#include "Hazel/Renderer/OrthographicCamera.h"
+
 namespace Hazel {
 
-	class HAZEL_API Application								//HAZEL_API macro for __dllexport
+	class HAZEL_API Application
 	{
-	public:													//methods related to the window*
-		Application();										//declaration
-		virtual ~Application();								//virtual destructor*
-		
-		void Run();											//method controlling the shaders, renderer, layers
-		void OnEvent(Event& e);								//dispatch an event to other layers*
-		
-		bool m_Running = true;								//control the running of an application
-		bool OnWindowClose(WindowCloseEvent& e);			//change m_Running to false
+	public:
+		Application();
+		virtual ~Application() = default;
 
-		std::unique_ptr<Window> m_Window;					//create a member window*
-		
-		LayerStack m_LayerStack;
-		ImGuiLayer* m_ImGuiLayer;
+		void Run();
 
-		void PushLayer(Layer* layer);						//*
+		void OnEvent(Event& e);
+
+		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+
+		inline Window& GetWindow() { return *m_Window; }
+
+		inline static Application& Get() { return *s_Instance; }
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
+		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
+		bool m_Running = true;
+		LayerStack m_LayerStack;
 
 		std::shared_ptr<Shader> m_Shader;
 		std::shared_ptr<VertexArray> m_VertexArray;
-		
+
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
 
-		static Application* s_Instance;								//??
-
-
-		inline Window& GetWindow() { return *m_Window; }			//returns the size of the window
-		inline static Application& Get() { return *s_Instance; }	//??*
+		OrthographicCamera m_Camera;
+	private:
+		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT

@@ -1,5 +1,7 @@
 #pragma once
 
+//PARENT VERTEX ARRAY CLASS
+
 #include <memory>
 #include "Hazel/Renderer/Buffer.h"
 
@@ -10,7 +12,7 @@ namespace Hazel {
 	public:
 		virtual ~VertexArray() {}
 
-		virtual void Bind() const = 0;
+		virtual void Bind() const = 0;							//pure virtual interface for different platforms
 		virtual void Unbind() const = 0;
 
 		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0;

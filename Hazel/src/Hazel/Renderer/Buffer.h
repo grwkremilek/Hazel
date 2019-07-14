@@ -1,6 +1,6 @@
 #pragma once
 
-//PARENT FILE FOR ALL BUFFERS 
+//PARENT FILE FOR ALL BUFFERS, SWITCH FOR PLATFORMS
 
 namespace Hazel {
 
@@ -108,7 +108,7 @@ namespace Hazel {
 	class VertexBuffer
 	{
 	public:
-		virtual ~VertexBuffer() {}										//pure virtual interface*
+		virtual ~VertexBuffer() {}										//pure virtual interface* for different platforms
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

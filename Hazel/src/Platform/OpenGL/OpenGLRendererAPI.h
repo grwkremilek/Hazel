@@ -1,3 +1,5 @@
+// RENDERER API IMPLEMENTATION FOR OPENGL
+
 #pragma once
 
 #include "Hazel/Renderer/RendererAPI.h"

@@ -1,3 +1,5 @@
+//PARENT VERTEX ARRAY CLASS
+
 #include "hzpch.h"
 #include "VertexArray.h"
 
