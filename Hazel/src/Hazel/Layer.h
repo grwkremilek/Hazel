@@ -2,6 +2,7 @@
 
 #include "Hazel/Core.h"							//include macros
 #include "Hazel/Events/Event.h"					//include genral class for event
+#include "Hazel/Core/Timestep.h"
 
 namespace Hazel {
 
@@ -9,11 +10,10 @@ namespace Hazel {
 	{
 	public:
 		Layer(const std::string& name = "Layer");	//declaration of a layer
-		virtual ~Layer();							//destroyer of alyer
-
+		virtual ~Layer();
 		virtual void OnAttach() {}					//will be defined where??
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
