@@ -159,6 +159,13 @@ project "Asteroid"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	-- Include directories relative to root folder (solution directory)
+	IncludeDir = {}
+	IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+	IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
+	IncludeDir["ImGui"] = "Hazel/vendor/imgui"
+	IncludeDir["glm"] = "Hazel/vendor/glm"
 
     files
     {
