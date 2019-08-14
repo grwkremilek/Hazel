@@ -40,7 +40,7 @@ public:
 			-0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
 
-		std::shared_ptr<Hazel::VertexBuffer> vertexBuffer;		//create a vertex buffer
+		Ref<Hazel::VertexBuffer> vertexBuffer;		//create a vertex buffer
 		vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices))); // switch to opengl and create buffer
 
 		Hazel::BufferLayout layout = {
@@ -58,7 +58,7 @@ public:
 								16, 17, 18, 16, 18, 19,		//upper
 								20, 21, 22, 20, 22, 23		//bottom
 		};
-		std::shared_ptr<Hazel::IndexBuffer> indexBuffer;
+		Ref<Hazel::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Hazel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -158,11 +158,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Hazel::Shader> m_Shader;
-	std::shared_ptr<Hazel::VertexArray> m_VertexArray;
+	Ref<Hazel::Shader> m_Shader;
+	Ref<Hazel::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Hazel::Shader> m_BlueShader;
-	std::shared_ptr<Hazel::VertexArray> m_SquareVA;
+	Ref<Hazel::Shader> m_BlueShader;
+	Ref<Hazel::VertexArray> m_SquareVA;
 
 	Hazel::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
