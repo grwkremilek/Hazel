@@ -6,6 +6,9 @@
 
 extern Hazel::Application* Hazel::CreateApplication();		//*
 
+extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }  // choose Nvidia card
+
+
 int main(int argc, char** argv)								//*
 {
 	Hazel::Log::Init();										//initiate logging system
