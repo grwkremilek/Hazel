@@ -1,5 +1,4 @@
 #pragma once
-
 //PARENT FILE FOR ALL BUFFERS, SWITCH FOR PLATFORMS
 
 namespace Hazel {
