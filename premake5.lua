@@ -1,3 +1,4 @@
+
 workspace "Hazel"
 	architecture "x64"
 	startproject "Sandbox"
@@ -9,9 +10,13 @@ workspace "Hazel"
 		"Release",
 		"Dist"
 	}
+	
+	flags
+	{
+		"MultiProcessorCompile"
+	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
@@ -27,6 +32,11 @@ group "Dependencies"
 	include "Hazel/vendor/imgui"
 
 group ""
+
+
+-------------------------------------------------------------------------------------------------------------------
+--HAZEL--
+-------------------------------------------------------------------------------------------------------------------
 
 project "Hazel"
 	location "Hazel"
@@ -81,7 +91,7 @@ project "Hazel"
 		defines
 		{
 			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL",
+			"HZ_BUILD_DLL",							--macro for DLL (  __declspec(dllexport))
 			"GLFW_INCLUDE_NONE"
 		}
 
@@ -101,9 +111,9 @@ project "Hazel"
 		optimize "on"
 
 
-
-
-
+-------------------------------------------------------------------------------------------------------------------
+--SANDBOX--
+-------------------------------------------------------------------------------------------------------------------
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -157,7 +167,9 @@ project "Sandbox"
 		optimize "on"
 
 
-
+-------------------------------------------------------------------------------------------------------------------
+--ASTEROID--
+-------------------------------------------------------------------------------------------------------------------
 
 project "Asteroid"
     location "Asteroid"

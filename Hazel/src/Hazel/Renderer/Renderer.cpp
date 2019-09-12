@@ -1,3 +1,5 @@
+//PLATFORM INDEPENDENT RENDERER FRAMEWORK
+
 #include "hzpch.h"
 #include "Renderer.h"
 

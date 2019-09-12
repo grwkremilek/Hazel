@@ -1,21 +1,22 @@
 #pragma once
 
-//GENERAL STRUCTURE FOR A WINDOW
+//PLATFORM INDEPENDENT INTERFACE FOR A WINDOW
+//
 
-#include "hzpch.h"				//include a collection of standard library header files
+#include "hzpch.h"
 
-#include "Hazel/Core.h"			//include macros
-#include "Hazel/Events/Event.h"	//include general class for an event
+#include "Hazel/Core.h"
+#include "Hazel/Events/Event.h"
 
 namespace Hazel {
 
-	struct WindowProps			//window properties*
+	struct WindowProps															//*
 	{
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Asteroid (Hazel engine)",
+		WindowProps(const std::string& title = "Sandbox (Hazel engine)",
 			unsigned int width = 1366,
 			unsigned int height = 768)
 			: Title(title), Width(width), Height(height)
@@ -27,34 +28,38 @@ namespace Hazel {
 	class HAZEL_API Window
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;		//EventCallbackFn as alias for std::function...*
+		using EventCallbackFn = std::function<void(Event&)>;					//**
 
 		virtual ~Window() {}
 
 		virtual void OnUpdate() = 0;
 
-		virtual unsigned int GetWidth() const = 0;					//*
+		virtual unsigned int GetWidth() const = 0;								//***
 		virtual unsigned int GetHeight() const = 0;
 
 		// Window attributes
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
-		virtual void SetVSync(bool enabled) = 0;					//vertical synchronization
-		virtual bool IsVSync() const = 0;							//get info about vertical synchronization
+		virtual void SetVSync(bool enabled) = 0;								//vertical synchronization
+		virtual bool IsVSync() const = 0;										//get info about vertical synchronization
 
-		virtual void* GetNativeWindow() const = 0;					//  
+		virtual void* GetNativeWindow() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Window* Create(const WindowProps& props = WindowProps());		//impleneted per platform
 	};
 }
 
 /*
+
+*
 structure vs class
 - structs have default public members and bases and classes have default private members and bases
 - both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions
 
+**
 using
 = alias
 
+***
 std::function
  - general-purpose polymorphic function wrapper
  - will take any function with given parameters (in this case void and Event as parameter)

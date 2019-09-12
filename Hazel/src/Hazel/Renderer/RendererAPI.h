@@ -1,6 +1,6 @@
 #pragma once
 
-//RENDERER IMPLEMENTATION PER PLATFORM
+//RENDERER IMPLEMENTATION PER PLATFORM (OpenGL, ...Vulcan, DirectX, Metal...)
 
 #include <glm/glm.hpp>
 #include "VertexArray.h"

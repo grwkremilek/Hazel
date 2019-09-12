@@ -1,5 +1,9 @@
-  
-//WINDOW SETUP, IMGUI CONTEXT SETUP, APPLICATION RUNNING
+
+//WINDOW SETUP, 
+//IMGUI CONTEXT SETUP
+//APPLICATION LIFE CYCLE (while loop)
+
+
 #include "hzpch.h"
 #include "Application.h"
 
@@ -10,6 +14,7 @@
 #include "Input.h"
 
 #include "glfw/glfw3.h"
+
 
 namespace Hazel {
 

@@ -1,22 +1,29 @@
+
+//KEY EVENTS (pressed, released)
+
 #pragma once
 
 #include "Event.h"
 
 namespace Hazel {
 
+	//abstract key event
 	class HAZEL_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
-	protected:
+	protected:																		//*										
 		KeyEvent(int keycode)
 			: m_KeyCode(keycode) {}
 
 		int m_KeyCode;
 	};
 
+
+
+	//key pressed event
 	class HAZEL_API KeyPressedEvent : public KeyEvent
 	{
 	public:
@@ -37,6 +44,7 @@ namespace Hazel {
 		int m_RepeatCount;
 	};
 
+
 	class HAZEL_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
@@ -52,6 +60,8 @@ namespace Hazel {
 
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
+
+
 
 	class HAZEL_API KeyTypedEvent : public KeyEvent
 	{
@@ -69,3 +79,9 @@ namespace Hazel {
 		EVENT_CLASS_TYPE(KeyTyped)
 	};
 }
+
+/*
+
+protected
+
+*/

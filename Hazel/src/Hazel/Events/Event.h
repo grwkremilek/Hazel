@@ -1,3 +1,6 @@
+
+//EVENT PARENT CLASS
+
 #pragma once
 
 #include "hzpch.h"
@@ -7,27 +10,27 @@ namespace Hazel {
 
 	// Events in Hazel are currently blocking, meaning when an event occurs it
 	// immediately gets dispatched and must be dealt with right then an there.
-	// For the future, a better strategy might be to buffer events in an event
-	// bus and process them during the "event" part of the update stage.
 
 	enum class EventType
 	{
 		None = 0,
-		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
-		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased, KeyTyped,
-		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
+		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,				//window events
+		AppTick, AppUpdate, AppRender,														//application events
+		KeyPressed, KeyReleased, KeyTyped,													//key events
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled					//mouse events
 	};
 
 	enum EventCategory
 	{
 		None = 0,
-		EventCategoryApplication = BIT(0),
-		EventCategoryInput = BIT(1),
-		EventCategoryKeyboard = BIT(2),
-		EventCategoryMouse = BIT(3),
-		EventCategoryMouseButton = BIT(4)
+		EventCategoryApplication	= BIT(0),
+		EventCategoryInput			= BIT(1),
+		EventCategoryKeyboard		= BIT(2),
+		EventCategoryMouse			= BIT(3),
+		EventCategoryMouseButton	= BIT(4)
 	};
+
+
 
 	#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
@@ -35,22 +38,28 @@ namespace Hazel {
 
 	#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
+
+
 	class HAZEL_API Event
 	{
 	public:
 		bool Handled = false;
 
-		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
-		virtual int GetCategoryFlags() const = 0;
+		virtual EventType GetEventType() const	= 0;
+		virtual const char* GetName() const		= 0;
+		virtual int GetCategoryFlags() const	= 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)
+
+		inline bool IsInCategory(EventCategory category)					//returns 0 if the event not in a category
 		{
 			return GetCategoryFlags() & category;
 		}
 	};
 
+
+
+	//
 	class EventDispatcher
 	{
 		template<typename T>

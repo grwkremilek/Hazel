@@ -1,5 +1,7 @@
 #pragma once
 
+//PLATFORM INDEPENDENT RENDERER FRAMEWORK
+
 #include "RenderCommand.h"
 
 #include "OrthographicCamera.h"

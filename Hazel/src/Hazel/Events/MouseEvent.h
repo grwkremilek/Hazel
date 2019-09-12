@@ -1,9 +1,14 @@
+
+//MOUSE EVENTS (moved, scrolled, button, button pressed, button released)
+
 #pragma once
 
 #include "Event.h"
 
 namespace Hazel {
 
+
+	//mouse moved
 	class HAZEL_API MouseMovedEvent : public Event
 	{
 	public:
@@ -26,6 +31,8 @@ namespace Hazel {
 		float m_MouseX, m_MouseY;
 	};
 
+
+	//mouse scrolled
 	class HAZEL_API MouseScrolledEvent : public Event
 	{
 	public:
@@ -48,6 +55,8 @@ namespace Hazel {
 		float m_XOffset, m_YOffset;
 	};
 
+
+	//mouse button
 	class HAZEL_API MouseButtonEvent : public Event
 	{
 	public:
@@ -61,6 +70,8 @@ namespace Hazel {
 		int m_Button;
 	};
 
+
+	//mouse button pressed
 	class HAZEL_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
@@ -77,6 +88,8 @@ namespace Hazel {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
+
+	//mouse button released
 	class HAZEL_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
@@ -92,5 +105,4 @@ namespace Hazel {
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
-
 }

@@ -4,9 +4,9 @@
 
 #include "imgui/imgui.h"
 
-
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 
 class ExampleLayer : public Hazel::Layer
 {
@@ -213,6 +213,11 @@ private:
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
+
+
+
+
+
 class Sandbox : public Hazel::Application
 {
 public:
@@ -225,7 +230,6 @@ public:
 	{
 
 	}
-
 };
 
 Hazel::Application* Hazel::CreateApplication()

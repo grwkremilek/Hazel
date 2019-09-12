@@ -1,4 +1,4 @@
-//RENDERER IMPLEMENTATION PER PLATFORM
+//RENDERER IMPLEMENTATION PER PLATFORM (OpenGL, ...Vulcan, DirectX, Metal...)
 
 #include "hzpch.h"
 #include "RendererAPI.h"

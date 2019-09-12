@@ -1,9 +1,14 @@
+
+//APPLICATION AND WINDOW EVENTS (window resize, app update, app rendering)
+
 #pragma once
 
 #include "Event.h"
 
 namespace Hazel {
 
+
+	//window resize
 	class HAZEL_API WindowResizeEvent : public Event
 	{
 	public:
@@ -35,6 +40,8 @@ namespace Hazel {
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
+
+	//??
 	class HAZEL_API AppTickEvent : public Event
 	{
 	public:
@@ -44,6 +51,8 @@ namespace Hazel {
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
+
+	//propagate updating as event
 	class HAZEL_API AppUpdateEvent : public Event
 	{
 	public:
@@ -53,6 +62,8 @@ namespace Hazel {
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
+
+	//propagate rendering as event
 	class HAZEL_API AppRenderEvent : public Event
 	{
 	public:

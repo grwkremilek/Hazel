@@ -1,21 +1,27 @@
+
+//MACROS
+
 #pragma once
 
 #include <memory>
 
-#ifdef HZ_PLATFORM_WINDOWS
-#if HZ_DYNAMIC_LINK
-#ifdef HZ_BUILD_DLL
-#define HAZEL_API __declspec(dllexport)
+
+#ifdef HZ_PLATFORM_WINDOWS											//export active for DLL, import active for a client app
+	#if HZ_DYNAMIC_LINK												//HZ abbr. for macros
+		#ifdef HZ_BUILD_DLL
+			#define HAZEL_API __declspec(dllexport)					//*
+		#else
+			#define HAZEL_API __declspec(dllimport)					//**
+		#endif
+	#else
+		#define HAZEL_API
+	#endif
 #else
-#define HAZEL_API __declspec(dllimport)
-#endif
-#else
-#define HAZEL_API
-#endif
-#else
-#error Hazel only supports Windows!
+	#error Hazel only supports Windows!
 #endif
 
+
+//check a condition and if it fails, break at the failing line of code
 #ifdef HZ_DEBUG
 #define HZ_ENABLE_ASSERTS
 #endif
@@ -28,7 +34,11 @@
 #define HZ_CORE_ASSERT(x, ...)
 #endif
 
-#define BIT(x) (1 << x)
+
+
+#define BIT(x) (1 << x)												//associate an event with an event category
+
+
 
 #define HZ_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
@@ -46,6 +56,8 @@ namespace Hazel {
 
 
 /*
+
+*
 __declspec(dllexport)
  - DLL file similar in layout to an .exe file + contains an exports table
  - exports table contains the name of every function that the DLL exports to other executables
@@ -54,6 +66,7 @@ __declspec(dllexport)
  - this .lib file can then be used just like a static .lib to link with a DLL
 
 
+ **
 __declspec(dllimport)
 - use in the header files for applications using the DLL
 - using __declspec(dllimport) is optional on function declarations, but the compiler produces more efficient code if you use this keyword

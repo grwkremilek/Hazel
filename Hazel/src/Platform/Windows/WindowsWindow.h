@@ -1,3 +1,6 @@
+
+//WINDOW IMPLEMENTATION FOR WINDOWS
+
 #pragma once
 
 #include "Hazel/Window.h"
@@ -34,8 +37,9 @@ namespace Hazel {
 		struct WindowData
 		{
 			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			unsigned int Width{ 0 };
+			unsigned int Height{ 0 };
+			bool VSync{ false };
 
 			EventCallbackFn EventCallback;
 		};
