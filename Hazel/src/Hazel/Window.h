@@ -1,7 +1,6 @@
 #pragma once
 
 //PLATFORM INDEPENDENT INTERFACE FOR A WINDOW
-//
 
 #include "hzpch.h"
 
@@ -39,12 +38,12 @@ namespace Hazel {
 
 		// Window attributes
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
-		virtual void SetVSync(bool enabled) = 0;								//vertical synchronization
-		virtual bool IsVSync() const = 0;										//get info about vertical synchronization
+		virtual void SetVSync(bool enabled) = 0;
+		virtual bool IsVSync() const = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());		//impleneted per platform
+		static Window* Create(const WindowProps& props = WindowProps());		//implemented per platform
 	};
 }
 

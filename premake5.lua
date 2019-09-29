@@ -2,7 +2,6 @@
 workspace "Hazel"
 	architecture "x64"
 	startproject "Sandbox"
-	--startproject "Asteroid"
 
 	configurations
 	{
@@ -165,68 +164,3 @@ project "Sandbox"
 		defines "HZ_DIST"
 		runtime "Release"
 		optimize "on"
-
-
--------------------------------------------------------------------------------------------------------------------
---ASTEROID--
--------------------------------------------------------------------------------------------------------------------
-
-project "Asteroid"
-    location "Asteroid"
-    kind "ConsoleApp"
-    staticruntime "on"
-    language "C++"
-    cppdialect "C++17"
-    
-
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	-- Include directories relative to root folder (solution directory)
-	IncludeDir = {}
-	IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
-	IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
-	IncludeDir["ImGui"] = "Hazel/vendor/imgui"
-	IncludeDir["glm"] = "Hazel/vendor/glm"
-
-    files
-    {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
-    }
-
-    includedirs
-    {
-        "Hazel/vendor/spdlog/include",
-        "Hazel/src",
-        "Hazel/vendor",
-        "%{IncludeDir.glm}"
-    }
-
-    links
-    {
-        "Hazel"
-    }
-
-    filter "system:windows"
-        systemversion "latest"
-
-        defines
-        {
-            "HZ_PLATFORM_WINDOWS"
-        }
-
-    filter "configurations:Debug"
-        defines "HZ_DEBUG"
-        runtime "Debug"
-        symbols "on"
-
-    filter "configurations:Release"
-        defines "HZ_RELEASE"
-        runtime "Release"
-        optimize "on"
-
-    filter "configurations:Dist"
-        defines "HZ_DIST"
-        runtime "Release"
-        optimize "on"

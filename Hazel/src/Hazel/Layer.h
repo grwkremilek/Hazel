@@ -1,24 +1,29 @@
+
+//LAYER INTERFACE
+
 #pragma once
 
-#include "Hazel/Core.h"							//include macros
-#include "Hazel/Events/Event.h"					//include genral class for event
+#include "Hazel/Core.h"
+#include "Hazel/Events/Event.h"
 #include "Hazel/Core/Timestep.h"
 
 namespace Hazel {
 
-	class HAZEL_API Layer						//macro for __declspec(dllexport)
+	class HAZEL_API Layer
 	{
 	public:
-		Layer(const std::string& name = "Layer");	//declaration of a layer
+		Layer(const std::string& name = "Layer");
 		virtual ~Layer();
-		virtual void OnAttach() {}					//will be defined where??
+		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
-		inline const std::string& GetName() const { return m_DebugName; }	//return the name of a layer
+		inline const std::string& GetName() const { return m_DebugName; }
 	protected:
 		std::string m_DebugName;
 	};
 }
+
+//TODO: enable/disable a layer

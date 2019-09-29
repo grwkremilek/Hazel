@@ -7,11 +7,11 @@
 #include "hzpch.h"
 #include "Application.h"
 
+#include "Input.h"
+
 #include "Hazel/Log.h"
 
 #include "Hazel/Renderer/Renderer.h"
-
-#include "Input.h"
 
 #include "glfw/glfw3.h"
 
@@ -66,7 +66,7 @@ namespace Hazel {
 	{
 		while (m_Running)
 		{
-			float time = (float)glfwGetTime();		//platform dependent
+			float time = (float)glfwGetTime();									//platform dependent
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 

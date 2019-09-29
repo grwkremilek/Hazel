@@ -1,5 +1,7 @@
 #pragma once
 
+//MOUSE BUTTON CODES TRANFERED FROM GLFW
+
 // From glfw3.h
 #define HZ_MOUSE_BUTTON_1         0
 #define HZ_MOUSE_BUTTON_2         1

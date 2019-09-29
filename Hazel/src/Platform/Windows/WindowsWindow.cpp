@@ -21,6 +21,7 @@ namespace Hazel {
 	}
 
 
+
 	Window* Window::Create(const WindowProps& props)
 	{
 		return new WindowsWindow(props);
@@ -52,6 +53,7 @@ namespace Hazel {
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
 			HZ_CORE_ASSERT(success, "Could not intialize GLFW!");
+			
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
@@ -59,12 +61,14 @@ namespace Hazel {
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
 		m_Context = new OpenGLContext(m_Window);
-		m_Context->Init();
+		m_Context->Init();																//GLAD initialization
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		// Set GLFW callbacks
+
+		////////////////////GLFW CALLBACKS/////////////////////////
+
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -119,7 +123,7 @@ namespace Hazel {
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);								//??
 
 			switch (action)
 			{
@@ -155,6 +159,8 @@ namespace Hazel {
 		});
 	}
 
+
+
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
@@ -162,14 +168,14 @@ namespace Hazel {
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwPollEvents();			//process events in the queue + window and input callbacks associated with the events called
+		glfwPollEvents();						//process events in the queue + window and input callbacks associated with the events called
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		if (enabled)
-			glfwSwapInterval(1);						//*
+			glfwSwapInterval(1);						
 		else
 			glfwSwapInterval(0);
 
@@ -181,8 +187,3 @@ namespace Hazel {
 		return m_Data.VSync;
 	}
 }
-
-/*
-glfwSwapBuffers
-This function sets the swap interval for the current OpenGL or OpenGL ES context, i.e. the number of screen updates to wait from the time glfwSwapBuffers was called before swapping the buffers and returning. This is sometimes called vertical synchronization, vertical retrace synchronization or just vsync.
-*/

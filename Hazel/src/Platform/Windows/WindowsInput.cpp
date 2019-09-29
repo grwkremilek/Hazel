@@ -1,3 +1,5 @@
+//WINDOW IMPLEMENTATION OF THE INPUT POLLING MANAGER
+
 #include "hzpch.h"
 #include "WindowsInput.h"
 

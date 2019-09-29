@@ -1,4 +1,4 @@
-#include "hzpch.h"			//include a collection of standard library header files
+#include "hzpch.h"
 #include "Layer.h"
 
 namespace Hazel {

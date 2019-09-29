@@ -1,29 +1,31 @@
+//A VECTOR OF LAYERS (with servicing wrapper functions)
+
 #pragma once
 
 #include <vector>
 
-#include "Hazel/Core.h"							//include macros
+#include "Hazel/Core.h"
 #include "Layer.h"				
 
 
 namespace Hazel {
 
-	class HAZEL_API LayerStack					//HAZEL_API macro for __dllexport
+	class HAZEL_API LayerStack
 	{
 	public:
-		LayerStack();							//declare layerstack
-		~LayerStack();							//destry layerstack
+		LayerStack();
+		~LayerStack();
 
-		void PushLayer(Layer* layer);			//push layer at the end of layerstack
-		void PushOverlay(Layer* overlay);		//push overlay at the end of layerstack
-		void PopLayer(Layer* layer);			//remove layer
-		void PopOverlay(Layer* overlay);		//remove overlay
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
+		void PopLayer(Layer* layer);
+		void PopOverlay(Layer* overlay);
 
-		std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }		//??
-		std::vector<Layer*>::iterator end() { return m_Layers.end(); }			//??
+		std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
+		std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 	private:
-		std::vector<Layer*> m_Layers;											//??
-		unsigned int m_LayerInsertIndex = 0;									//total of layers
+		std::vector<Layer*> m_Layers;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 
 }

@@ -1,3 +1,5 @@
+//WINDOW IMPLEMENTATION OF THE INPUT POLLING MANAGER
+
 #pragma once
 
 #include "Hazel/Input.h"

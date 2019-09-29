@@ -1,5 +1,7 @@
 #pragma once
 
+//IMGUI LAYER RENDERING DEBUG THINGS
+
 #include "Hazel/Layer.h"
 
 #include "Hazel/Events/ApplicationEvent.h"

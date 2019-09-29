@@ -1,8 +1,8 @@
 #include "hzpch.h"
 #include "OpenGLTexture.h"
 
-#include "Hazel/vendor/stb_image/stb_image.h"
-//#include "stb_image.h"
+//#include "Hazel/vendor/stb_image/stb_image.h"
+#include "stb_image.h"
 
 #include <glad/glad.h>
 
