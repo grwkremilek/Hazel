@@ -50,7 +50,7 @@ namespace Hazel {
 		virtual int GetCategoryFlags() const	= 0;
 		virtual std::string ToString() const { return GetName(); }
 
-
+		#pragma warning(disable : 26812)
 		inline bool IsInCategory(EventCategory category)					//returns 0 if the event not in a category
 		{
 			return GetCategoryFlags() & category;
