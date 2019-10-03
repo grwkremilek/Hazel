@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "Hazel/Core.h"
+#include "Hazel/Core/Core.h"
 #include "Layer.h"				
 
 

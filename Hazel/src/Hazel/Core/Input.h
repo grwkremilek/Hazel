@@ -2,7 +2,7 @@
 
 //MOUSE AND KEYBOARD INPUT POLLING MANAGER
 
-#include "Hazel/Core.h"
+#include "Hazel/Core/Core.h"
 
 namespace Hazel {
 
