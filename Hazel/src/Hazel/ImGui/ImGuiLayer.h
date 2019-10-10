@@ -16,11 +16,11 @@ namespace Hazel {
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		virtual void OnAttach() override;
-		virtual void OnDetach() override;
-		virtual void OnImGuiRender() override;
+		virtual void OnAttach() override;				//sets up ImGui context, style, Platform/Renderer bindings
+		virtual void OnDetach() override;				//close a frame, destry context
+		virtual void OnImGuiRender() override;			//all ImGui rendering
 
-		void Begin();
+		void Begin();									//begins a new frame
 		void End();
 	private:
 		float m_Time = 0.0f;

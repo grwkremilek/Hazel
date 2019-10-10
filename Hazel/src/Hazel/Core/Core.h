@@ -1,12 +1,12 @@
+#pragma once
 
 //MACROS
-
-#pragma once
 
 #include <memory>
 
 
-#ifdef HZ_PLATFORM_WINDOWS											//export active for DLL, import active for a client app
+//export active for DLL, import active for a client app
+#ifdef HZ_PLATFORM_WINDOWS
 	#if HZ_DYNAMIC_LINK												//HZ abbr. for macros
 		#ifdef HZ_BUILD_DLL
 			#define HAZEL_API __declspec(dllexport)					//*
@@ -35,9 +35,8 @@
 #endif
 
 
-
-#define BIT(x) (1 << x)												//associate an event with an event category
-
+//associate an event with an event category
+#define BIT(x) (1 << x)
 
 
 

@@ -1,6 +1,6 @@
-//WINDOW IMPLEMENTATION OF THE INPUT POLLING MANAGER
-
 #pragma once
+
+//WINDOW IMPLEMENTATION OF THE INPUT POLLING MANAGER
 
 #include "Hazel/Core/Input.h"
 
@@ -16,6 +16,5 @@ namespace Hazel {
 		virtual float GetMouseXImpl() override;
 		virtual float GetMouseYImpl() override;
 	};
-
 }
 

@@ -41,7 +41,7 @@ namespace Hazel {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
-		virtual void* GetNativeWindow() const = 0;
+		virtual void* GetNativeWindow() const = 0;								//allows access to a window in platform implementation
 
 		static Window* Create(const WindowProps& props = WindowProps());		//implemented per platform
 	};
