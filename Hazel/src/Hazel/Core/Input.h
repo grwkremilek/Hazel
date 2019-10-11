@@ -8,7 +8,13 @@ namespace Hazel {
 
 	class HAZEL_API Input
 	{
+	protected:
+		Input() = default;						//https://github.com/TheCherno/Hazel/issues/97
+
 	public:
+		Input(const Input&) = delete;
+		Input& operator=(const Input&) = delete;
+
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }		//static IsKezPressed calls a per platform implementation
 
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }

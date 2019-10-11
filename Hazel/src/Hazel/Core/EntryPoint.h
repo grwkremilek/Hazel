@@ -7,7 +7,7 @@
 
 #ifdef HZ_PLATFORM_WINDOWS
 
-extern Hazel::Application* Hazel::CreateApplication();							//Application declared in application.h, implemented in a client app*
+//extern Hazel::Application* Hazel::CreateApplication();
 
 extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }		// choose Nvidia card
 

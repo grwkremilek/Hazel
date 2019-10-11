@@ -41,17 +41,17 @@
 
 // DLL support
 #ifdef HZ_PLATFORM_WINDOWS
-#if HZ_DYNAMIC_LINK
-#ifdef HZ_BUILD_DLL
-#define HAZEL_API __declspec(dllexport)
+	#if HZ_DYNAMIC_LINK
+		#ifdef HZ_BUILD_DLL
+			#define HAZEL_API __declspec(dllexport)
+		#else
+			#define HAZEL_API __declspec(dllimport)
+		#endif
+	#else
+		#define HAZEL_API
+	#endif
 #else
-#define HAZEL_API __declspec(dllimport)
-#endif
-#else
-#define HAZEL_API
-#endif
-#else
-#error Hazel only supports Windows!
+	#error Hazel only supports Windows!
 #endif // End of DLL support
 
 

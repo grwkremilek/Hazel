@@ -69,7 +69,7 @@ namespace Hazel {
 		}
 
 		template<typename T, typename F>									// F will be deduced by the compiler
-		bool Dispatch(const F& func)
+		bool Dispatch(const F& func)										//https://github.com/TheCherno/Hazel/issues/85
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
@@ -86,5 +86,4 @@ namespace Hazel {
 	{
 		return os << e.ToString();
 	}
-
 }
