@@ -74,19 +74,20 @@ namespace Hazel {
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 
-		const char* typeToken = "#type";											//a word to split the shaders in a file on
+		const char* typeToken = "#type";									//a word to split the shaders in a file on
 		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = source.find(typeToken, 0);
+		size_t pos = source.find(typeToken, 0);								//start of shader type declaration line
 		while (pos != std::string::npos)
 		{
-			size_t eol = source.find_first_of("\r\n", pos);
+			size_t eol = source.find_first_of("\r\n", pos);					//end of shader type declaration line
 			HZ_CORE_ASSERT(eol != std::string::npos, "Syntax error");
-			size_t begin = pos + typeTokenLength + 1;
-			std::string type = source.substr(begin, eol - begin);					//identify the type of shader
+			size_t begin = pos + typeTokenLength + 1;						//start of shader type name (after "#type " keyword)
+			std::string type = source.substr(begin, eol - begin);			//identify the type of shader
 			HZ_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 		
-			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-			pos = source.find(typeToken, nextLinePos);								//take all the text from the next line to the next typeToken
+			size_t nextLinePos = source.find_first_not_of("\r\n", eol);		//start of shader code after shader type declaration line
+			HZ_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+			pos = source.find(typeToken, nextLinePos);						//take all the text from the next line to the next typeToken
 			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
 		}
 		return shaderSources;
