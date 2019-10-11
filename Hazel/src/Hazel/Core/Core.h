@@ -5,20 +5,54 @@
 #include <memory>
 
 
-//export active for DLL, import active for a client app
-#ifdef HZ_PLATFORM_WINDOWS
-	#if HZ_DYNAMIC_LINK												//HZ abbr. for macros
-		#ifdef HZ_BUILD_DLL
-			#define HAZEL_API __declspec(dllexport)					//*
-		#else
-			#define HAZEL_API __declspec(dllimport)					//**
-		#endif
+// PLATFORM DETECTION
+#ifdef _WIN32										// Windows x64/x86 
+	#ifdef _WIN64
+		#define HZ_PLATFORM_WINDOWS
 	#else
-		#define HAZEL_API
+		#error "x86 Builds are not supported!"
 	#endif
+
+#elif defined(__APPLE__) || defined(__MACH__)		//MAC Apple
+	#include <TargetConditionals.h>				
+	#if TARGET_IPHONE_SIMULATOR == 1
+		#error "IOS simulator is not supported!"
+	#elif TARGET_OS_IPHONE == 1
+		#define HZ_PLATFORM_IOS
+		#error "IOS is not supported!"
+	#elif TARGET_OS_MAC == 1
+		#define HZ_PLATFORM_MACOS
+		#error "MacOS is not supported!"
+	#else
+		#error "Unknown Apple platform!"
+	#endif
+
+#elif defined(__ANDROID__)						//Linux
+	#define HZ_PLATFORM_ANDROID					//Android based on linux, must be checked before __linux__
+	#error "Android is not supported!"
+#elif defined(__linux__)
+	#define HZ_PLATFORM_LINUX
+	#error "Linux is not supported!"
 #else
-	#error Hazel only supports Windows!
+	/* Unknown compiler/platform */
+	#error "Unknown platform!"
 #endif
+
+
+// DLL support
+#ifdef HZ_PLATFORM_WINDOWS
+#if HZ_DYNAMIC_LINK
+#ifdef HZ_BUILD_DLL
+#define HAZEL_API __declspec(dllexport)
+#else
+#define HAZEL_API __declspec(dllimport)
+#endif
+#else
+#define HAZEL_API
+#endif
+#else
+#error Hazel only supports Windows!
+#endif // End of DLL support
 
 
 //check a condition and if it fails, break at the failing line of code
