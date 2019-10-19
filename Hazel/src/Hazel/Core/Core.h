@@ -88,6 +88,9 @@ namespace Hazel {
 }
 
 
+//Prokopova template
+template <typename T> 
+void new_(T*& t) { t = new T(); };
 
 
 /*
