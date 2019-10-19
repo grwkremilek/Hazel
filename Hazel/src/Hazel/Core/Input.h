@@ -31,7 +31,7 @@ namespace Hazel {
 		virtual float GetMouseYImpl() = 0;
 	
 	private:
-		static Input* s_Instance;											//globally only one window manager (even if more windows)
+		static Scope<Input> s_Instance;											//globally only one window manager (even if more windows)
 	};
 }
 
