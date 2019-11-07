@@ -1,3 +1,5 @@
+//A QUEUE OF RENDERER COMMANDS
+
 #include "hzpch.h"
 #include "RenderCommand.h"
 

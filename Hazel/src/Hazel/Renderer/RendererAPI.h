@@ -1,6 +1,7 @@
 #pragma once
 
 //RENDERER IMPLEMENTATION PER PLATFORM (OpenGL, ...Vulcan, DirectX, Metal...)
+//each platform will contain classes: render context, swap chain, framebuffer, vertex buffer, index buffer, texture, shader, states, pipelines, render passes
 
 #include <glm/glm.hpp>
 #include "VertexArray.h"

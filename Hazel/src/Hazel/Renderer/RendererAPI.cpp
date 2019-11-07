@@ -1,4 +1,5 @@
 //RENDERER IMPLEMENTATION PER PLATFORM (OpenGL, ...Vulcan, DirectX, Metal...)
+//each platform will contain classes: render context, swap chain, framebuffer, vertex buffer, index buffer, texture, shader, states, pipelines, render passes
 
 #include "hzpch.h"
 #include "RendererAPI.h"

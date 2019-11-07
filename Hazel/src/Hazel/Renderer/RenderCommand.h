@@ -1,5 +1,7 @@
 #pragma once
 
+//A QUEUE OF RENDERER COMMANDS
+
 #include "RendererAPI.h"
 
 

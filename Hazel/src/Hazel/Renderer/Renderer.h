@@ -1,6 +1,7 @@
 #pragma once
 
 //PLATFORM INDEPENDENT RENDERER FRAMEWORK
+//will contain: 2D + 3D renderers, scene graph, sorting, culling, materials, LOD, animation, camera, VFX, PostFX,
 
 #include "RenderCommand.h"
 
