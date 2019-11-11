@@ -1,7 +1,7 @@
 //WINDOW IMPLEMENTATION OF THE INPUT POLLING MANAGER
 
 #include "hzpch.h"
-#include "WindowsInput.h"
+#include "Platform/Windows/WindowsInput.h"
 
 #include "Hazel/Core/Application.h"
 #include <GLFW/glfw3.h>

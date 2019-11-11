@@ -1,5 +1,5 @@
 #include "hzpch.h"
-#include "OrthographicCameraController.h"
+#include "Hazel/Renderer/OrthographicCameraController.h"
 
 #include "OrthographicCamera.h"
 

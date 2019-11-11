@@ -4,6 +4,7 @@
 #pragma once
 
 #include "hzpch.h"
+
 #include "Hazel/Core/Core.h"
 
 namespace Hazel {
@@ -40,7 +41,7 @@ namespace Hazel {
 
 
 
-	class HAZEL_API Event
+	class Event
 	{
 	public:
 		bool Handled = false;

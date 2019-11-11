@@ -1,11 +1,10 @@
 //A QUEUE OF RENDERER COMMANDS
 
 #include "hzpch.h"
-#include "RenderCommand.h"
+#include "Hazel/Renderer/RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLRendererAPI.h"
 
 namespace Hazel {
 
-	Scope<RendererAPI> RenderCommand::s_RendererAPI = CreateScope<OpenGLRendererAPI>();
+	Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
 }

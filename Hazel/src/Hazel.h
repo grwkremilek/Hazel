@@ -4,6 +4,7 @@
 
 
 #include "Hazel/Core/Application.h"
+#include "Hazel/Core/Core.h"
 #include "Hazel/Core/Input.h"
 #include "Hazel/Core/KeyCodes.h"
 #include "Hazel/Core/Layer.h"

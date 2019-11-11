@@ -24,7 +24,7 @@ namespace Hazel {
 	};
 
 	
-	class HAZEL_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;					//**
@@ -43,7 +43,7 @@ namespace Hazel {
 
 		virtual void* GetNativeWindow() const = 0;								//allows access to a window in platform implementation
 
-		static Window* Create(const WindowProps& props = WindowProps());		//implemented per platform
+		static Scope<Window> Create(const WindowProps& props = WindowProps());		//implemented per platform
 	};
 }
 
