@@ -18,7 +18,6 @@ namespace Hazel {
 
 		virtual void OnAttach() override;				//sets up ImGui context, style, Platform/Renderer bindings
 		virtual void OnDetach() override;				//close a frame, destry context
-		virtual void OnImGuiRender() override;			//all ImGui rendering
 
 		void Begin();									//begins a new frame
 		void End();
