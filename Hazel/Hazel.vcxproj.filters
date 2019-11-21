@@ -52,6 +52,9 @@
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Hazel\Debug">
+      <UniqueIdentifier>{070a8e5a-dfd4-4749-80ee-77a1309a9417}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Hazel.h">
@@ -1259,6 +1262,9 @@
     </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\Debug\Instrumentor.h">
+      <Filter>src\Hazel\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
