@@ -1,18 +1,6 @@
-//
-// Basic instrumentation profiler by Cherno
-
-// Usage: include this header file somewhere in your code (eg. precompiled header), and then use like:
-//
-// Instrumentor::Get().BeginSession("Session Name");        // Begin session 
-// {
-//     InstrumentationTimer timer("Profiled Scope Name");   // Place code like this in scopes you'd like to include in profiling
-//     // Code
-// }
-// Instrumentor::Get().EndSession();                        // End Session
-//
-// You will probably want to macro-fy this, to switch on/off easily and use things like __FUNCSIG__ for the profile name.
-//
 #pragma once
+
+//PROFILER
 
 #include <string>
 #include <chrono>
@@ -48,14 +36,14 @@ namespace Hazel {
 		{
 		}
 
-		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
+		void BeginSession(const std::string& name, const std::string& filepath = "results.json")											//open a file, write a header and create a session
 		{
 			m_OutputStream.open(filepath);
 			WriteHeader();
 			m_CurrentSession = new InstrumentationSession{ name };
 		}
 
-		void EndSession()
+		void EndSession()																													//write a footer, close a file and destroy a session
 		{
 			WriteFooter();
 			m_OutputStream.close();
@@ -110,25 +98,24 @@ namespace Hazel {
 		InstrumentationTimer(const char* name)
 			: m_Name(name), m_Stopped(false)
 		{
-			m_StartTimepoint = std::chrono::high_resolution_clock::now();
+			m_StartTimepoint = std::chrono::high_resolution_clock::now();																		//gets current time as a time point
 		}
 
 		~InstrumentationTimer()
 		{
 			if (!m_Stopped)
-				Stop();
+				Stop();																															//when an object gets destroyed, the time stops
 		}
-
+	
 		void Stop()
 		{
 			auto endTimepoint = std::chrono::high_resolution_clock::now();
 
-			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
+			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();				//cast to microseconds
 			long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
 			uint32_t threadID = std::hash<std::thread::id>{}(std::this_thread::get_id());
 			Instrumentor::Get().WriteProfile({ m_Name, start, end, threadID });
-
 			m_Stopped = true;
 		}
 	private:
@@ -138,12 +125,14 @@ namespace Hazel {
 	};
 }
 
-#define HZ_PROFILE 1
+
+
+#define HZ_PROFILE 1																															//if 0, the timer is disabled
 #if HZ_PROFILE
 	#define HZ_PROFILE_BEGIN_SESSION(name, filepath) ::Hazel::Instrumentor::Get().BeginSession(name, filepath)
 	#define HZ_PROFILE_END_SESSION() ::Hazel::Instrumentor::Get().EndSession()
-	#define HZ_PROFILE_SCOPE(name) ::Hazel::InstrumentationTimer timer##__LINE__(name);
-	#define HZ_PROFILE_FUNCTION() HZ_PROFILE_SCOPE(__FUNCSIG__)
+	#define HZ_PROFILE_SCOPE(name) ::Hazel::InstrumentationTimer timer##__LINE__(name);															//__LINE__ = a predefined preprocessor macro that expands to current line number in the source file, as an integer.
+	#define HZ_PROFILE_FUNCTION() HZ_PROFILE_SCOPE(__FUNCSIG__)																					//__FUNCSIG__ Defined as a string literal that contains the signature of the enclosing function
 #else
 	#define HZ_PROFILE_BEGIN_SESSION(name, filepath)
 	#define HZ_PROFILE_END_SESSION()

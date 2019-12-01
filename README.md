@@ -1,2 +1,2 @@
 # Hazel
-simulation engine
+simulation engine closely following [TheCherno youtube series](https://www.youtube.com/watch?v=fLgTtaqqJp0)
