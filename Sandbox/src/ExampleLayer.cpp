@@ -1,3 +1,6 @@
+
+//USED FOR TESTING THE ENGINE
+
 #include "ExampleLayer.h"
 
 #include "imgui/imgui.h"
